@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.sergio.api.v1.mapper.CategoryMapper;
 import com.sergio.api.v1.model.CategoryDTO;
-import com.sergio.domain.Category;
 import com.sergio.repositories.CategoryRepository;
 
 public class CategoryServiceImpl implements CategoryService{
