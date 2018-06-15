@@ -1,4 +1,4 @@
-package com.sergio.api.v1.controllers;
+package com.sergio.api.controllers.v1;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
