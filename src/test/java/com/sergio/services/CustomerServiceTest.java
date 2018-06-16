@@ -124,7 +124,7 @@ public class CustomerServiceTest {
 	@Test
 	public void deleteCustomerById() throws Exception {
 		
-		customerRepository.deleteById(ID);
+		customerService.deleteCustomerById(ID);
 		
 		verify(customerRepository, times(1)).deleteById(anyLong());
 	}
