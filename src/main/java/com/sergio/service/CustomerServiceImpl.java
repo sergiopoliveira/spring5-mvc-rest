@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sergio.api.v1.mapper.CustomerMapper;
 import com.sergio.api.v1.model.CustomerDTO;
+import com.sergio.domain.Customer;
 import com.sergio.repositories.CustomerRepository;
 
 @Service
@@ -39,6 +40,20 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerRepository.findById(id)
 				.map(customerMapper::customerToCustomerDTO)
 				.orElseThrow(RuntimeException::new); //TODO implement better exception handling
+	}
+
+	@Override
+	public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+
+		Customer customer = customerMapper.customerDtoToCustomer(customerDTO);
+		
+		Customer savedCustomer = customerRepository.save(customer);
+		
+		CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+		
+		returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+		
+		return returnDTO;
 	}
 
 }
