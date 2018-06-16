@@ -25,7 +25,7 @@ import com.sergio.service.CustomerServiceImpl;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CustomerServiceImplIT {
+public class CustomerServiceImplTestIT {
 
 	@Autowired
 	CustomerRepository customerRepository;
