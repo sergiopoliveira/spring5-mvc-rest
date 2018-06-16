@@ -39,6 +39,8 @@ jobs:
 
       # run tests! and gen code coverage
       - run: mvn verify
+      
+       - run: mvn jacoco:report
 
       - run:
           name: Send to CodeCov
