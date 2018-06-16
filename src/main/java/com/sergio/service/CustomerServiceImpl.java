@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sergio.api.v1.mapper.CustomerMapper;
 import com.sergio.api.v1.model.CustomerDTO;
+import com.sergio.controllers.v1.CustomerController;
 import com.sergio.domain.Customer;
 import com.sergio.repositories.CustomerRepository;
 
@@ -29,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService{
 				.stream()
 				.map(customer -> {
 					CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-					customerDTO.setCustomerUrl("/api/v1/customer/" + customer.getId());
+					customerDTO.setCustomerUrl(getCustomerUrl(customer.getId()));
 					return customerDTO;
 				})
 				.collect(Collectors.toList());
@@ -41,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService{
 				.map(customerMapper::customerToCustomerDTO)
 				.map(customerDTO -> {
 					//set API URL
-					customerDTO.setCustomerUrl("/api/v1/customer/" + id);
+					customerDTO.setCustomerUrl(getCustomerUrl(id));
 					return customerDTO;
 				})
 				.orElseThrow(RuntimeException::new); //TODO implement better exception handling
@@ -71,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
 		
-		returnDTO.setCustomerUrl("/api/v1/customer/" + savedCustomer.getId());
+		returnDTO.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
 		
 		return returnDTO;
 	}
@@ -89,7 +90,8 @@ public class CustomerServiceImpl implements CustomerService{
 			}
 			
 			CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
-			returnDTO.setCustomerUrl("/api/v1/customer/" + id);
+			
+			returnDTO.setCustomerUrl(getCustomerUrl(id));
 			
 			return returnDTO;
 		}).orElseThrow(RuntimeException::new); // TODO implement better exception handling
@@ -99,7 +101,10 @@ public class CustomerServiceImpl implements CustomerService{
 	public void deleteCustomerById(Long id) {
 		
 		customerRepository.deleteById(id);
-		
+	}
+	
+	private String getCustomerUrl(Long id) {
+		return CustomerController.BASE_URL + "/" + id;
 	}
 
 }

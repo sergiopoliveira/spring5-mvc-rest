@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.sergio.api.v1.mapper.CustomerMapper;
 import com.sergio.api.v1.model.CustomerDTO;
+import com.sergio.controllers.v1.CustomerController;
 import com.sergio.domain.Customer;
 import com.sergio.repositories.CustomerRepository;
 import com.sergio.service.CustomerService;
@@ -95,7 +96,7 @@ public class CustomerServiceTest {
 		
 		// then
 		assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-		assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+		assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
 	}
 	
 	@Test
@@ -117,7 +118,7 @@ public class CustomerServiceTest {
 		
 		// then
 		assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-		assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
+		assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
 	}
 	
 	@Test
