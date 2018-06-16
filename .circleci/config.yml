@@ -40,7 +40,8 @@ jobs:
       # run tests! and gen code coverage
       - run: mvn verify
       
-       - run: mvn jacoco:report
+       - store_test_results:
+         path: target/surefire-reports
 
       - run:
           name: Send to CodeCov
