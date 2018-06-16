@@ -41,7 +41,7 @@ jobs:
       - run: mvn integration-test cobertura:cobertura
 
       - store_test_results:
-          path: ~/.target/site/cobertura
+          path: ~/target/site/cobertura
 
       - run:
           name: Send to CodeCov
