@@ -1,9 +1,11 @@
 package com.sergio.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.List;
@@ -118,14 +120,11 @@ public class CustomerServiceTest {
 		assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@Test
+	public void deleteCustomerById() throws Exception {
+		
+		customerRepository.deleteById(ID);
+		
+		verify(customerRepository, times(1)).deleteById(anyLong());
+	}
 }
