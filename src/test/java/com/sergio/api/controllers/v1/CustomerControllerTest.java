@@ -6,12 +6,12 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
@@ -27,8 +27,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.sergio.api.v1.model.CustomerDTO;
+import com.sergio.controllers.v1.CategoryController;
 import com.sergio.controllers.v1.CustomerController;
+import com.sergio.controllers.v1.RestResponseEntityExceptionHandler;
 import com.sergio.service.CustomerService;
+import com.sergio.service.ResourceNotFoundException;
 
 public class CustomerControllerTest {
 
@@ -48,7 +51,9 @@ public class CustomerControllerTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+				.setControllerAdvice(new RestResponseEntityExceptionHandler())
+				.build();
 	}
 	
 	@Test
@@ -161,5 +166,15 @@ public class CustomerControllerTest {
 				.andExpect(status().isOk());
 		
 		verify(customerService).deleteCustomerById(anyLong());
+	}
+	
+	@Test
+	public void testGetByNameNotFound() throws Exception {
+		
+		when(customerController.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+		
+		mockMvc.perform(get(CategoryController.BASE_URL + "/999")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
 	}
 }
