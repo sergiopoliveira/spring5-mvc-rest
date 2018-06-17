@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -149,7 +148,7 @@ public class CustomerControllerTest {
 		
 		when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
 		
-		mockMvc.perform(patch("/api/v1/customers/1")
+		mockMvc.perform(patch(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(AbstractRestControllerTest.asJsonString(customerDTO)))
 		.andExpect(status().isOk())

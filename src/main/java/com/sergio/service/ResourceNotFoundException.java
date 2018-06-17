@@ -2,6 +2,8 @@ package com.sergio.service;
 
 public class ResourceNotFoundException extends RuntimeException {
 
+	private static final long serialVersionUID = -1663631439510662225L;
+
 	public ResourceNotFoundException() {
 	}
 

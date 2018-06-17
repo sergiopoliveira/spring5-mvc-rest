@@ -1,10 +1,11 @@
 package com.sergio.services;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -20,6 +21,7 @@ import com.sergio.bootstrap.Bootstrap;
 import com.sergio.domain.Customer;
 import com.sergio.repositories.CategoryRepository;
 import com.sergio.repositories.CustomerRepository;
+import com.sergio.repositories.VendorRepository;
 import com.sergio.service.CustomerService;
 import com.sergio.service.CustomerServiceImpl;
 
@@ -32,6 +34,9 @@ public class CustomerServiceImplTestIT {
 
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	CustomerService customerService;
 
@@ -41,7 +46,7 @@ public class CustomerServiceImplTestIT {
 		System.out.println(customerRepository.findAll().size());
 
 		// setup data for testing
-		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
 		bootstrap.run(); // load data
 
 		customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
