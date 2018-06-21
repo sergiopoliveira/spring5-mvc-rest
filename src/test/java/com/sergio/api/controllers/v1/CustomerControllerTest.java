@@ -70,7 +70,8 @@ public class CustomerControllerTest {
 		when(customerService.getAllCustomers()).thenReturn(customers);
 		
 		mockMvc.perform(get(CustomerController.BASE_URL)
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.customers", hasSize(2)));
 	}
@@ -84,7 +85,8 @@ public class CustomerControllerTest {
 		when(customerService.getCustomerById(ID)).thenReturn(customer1);
 		
 		mockMvc.perform(get(CustomerController.BASE_URL + "/1")
-				.contentType(MediaType.APPLICATION_JSON))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.firstname", equalTo(FIRSTNAME)));
 	}
@@ -105,6 +107,7 @@ public class CustomerControllerTest {
 		
 		mockMvc.perform(post(CustomerController.BASE_URL)
 				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
 				.content(AbstractRestControllerTest.asJsonString(customerDTO)))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.firstname", equalTo(FIRSTNAME)))
@@ -127,6 +130,7 @@ public class CustomerControllerTest {
 		
 		mockMvc.perform(put(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
 				.content(AbstractRestControllerTest.asJsonString(customerDTO)))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.firstname", equalTo(FIRSTNAME)))
@@ -150,6 +154,7 @@ public class CustomerControllerTest {
 		
 		mockMvc.perform(patch(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
 				.content(AbstractRestControllerTest.asJsonString(customerDTO)))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.firstname", equalTo(FIRSTNAME)))

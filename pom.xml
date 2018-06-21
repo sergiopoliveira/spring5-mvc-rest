@@ -40,6 +40,21 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- These 2 dependencies will allow to return data in XML format -->
+		<!-- just change the "accept" in the HTTP header to application/xml -->
+		<!-- and the server will return the POJO in XML format -->
+		<dependency>
+		<groupId>com.fasterxml.jackson.dataformat</groupId>
+		<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			  <version>4.4.1</version>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
